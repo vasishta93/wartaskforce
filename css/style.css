@@ -229,7 +229,7 @@ ul {
       position: absolute;
       width: 14px;
       height: 4px;
-      background: #cc3399;
+      /* background: #cc3399; */
       left: 0;
       top: 11px;
       border-radius: 50px; }
