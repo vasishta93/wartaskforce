@@ -121,6 +121,10 @@ jQuery(document).ready(function () {
 
     /*======= End Banner Resize with window size =========*/
 
+    /*======== Real Time Numbers Script ========= */
+    GetRealTimeNumbers();
+    /*===== End of Real Time Numbers Script ===== */
+
     /*========= Fun and Facts Script ======== */
 
     try {
@@ -388,6 +392,24 @@ jQuery(document).ready(function () {
 });
 /*======== End Doucument Ready Function =========*/
 
+function GetRealTimeNumbers() {
+    $.get("https://api.covid19india.org/data.json").success(function(result){
+        $("#totalCases").text(FormatNumbers(result.statewise[0].confirmed));
+        $("#activeCases").text(FormatNumbers(result.statewise[0].active));
+        $("#recoveredCases").text(FormatNumbers(result.statewise[0].recovered));
+        $("#deaths").text(FormatNumbers(result.statewise[0].deaths));
+    });
+}
+
+function FormatNumbers(value) {
+    var val = value.toString();
+    var lastThree = val.substring(val.length-3);
+    var otherNumbers = val.substring(0, val.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return res;
+}
 
 /*======== Init Google Map =========*/
 
